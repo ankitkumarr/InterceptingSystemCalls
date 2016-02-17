@@ -1,0 +1,77 @@
+*******************************************************************************
+Test 1:
+
+try: sleep 600 &
+try: /getloginuid 8926
+Output:	cs3013_syscall1: 0
+	 The process is owned by 65535
+Log: Feb  5 23:16:46 ankitos-VirtualBox kernel: [10494.586066] 	 Found the process with id 8926
+Feb  5 23:17:01 ankitos-VirtualBox CRON[8955]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+Feb  5 23:17:51 ankitos-VirtualBox kernel: [10559.829098] 	 Found the process with id 8926
+
+*******************************************************************************
+
+Test 2:
+
+try: sleep 1000 &
+[4] 8976
+
+try: ./getloginuid 8976
+	cs3013_syscall1: 0
+	 The process is owned by 65535
+log: Feb  5 23:21:41 ankitos-VirtualBox kernel: [10789.535077] 	 Found the process with id 8976
+
+********************************************************************************
+Test 3:
+
+try: ./shift2user 8976 1001
+output:	cs3013_syscall2: 0
+send2user was successful! The request was completed
+
+log:
+Feb  5 23:22:35 ankitos-VirtualBox kernel: [10844.121287] 	Process found with ID 8976
+Feb  5 23:22:35 ankitos-VirtualBox kernel: [10844.121291] 	 Moving process id 8976 to userid 1001
+Feb  5 23:22:35 ankitos-VirtualBox kernel: [10844.121294] 	Process change successful
+Feb  5 23:22:35 ankitos-VirtualBox kernel: [10844.121297] 	 The process was found and successfully implemented the desired change
+
+********************************************************************************
+Test 4:
+
+try: ./getloginuid 8976
+output:	cs3013_syscall1: 0
+	 The process is owned by 1001
+
+log:
+Feb  5 23:23:19 ankitos-VirtualBox kernel: [10887.566147] 	 Found the process with id 8976
+
+********************************************************************************
+Test 5:
+
+
+try: ./shift2user 8976 1002
+output:	cs3013_syscall2: 1
+Error! send2user could not finish your request. Please check the syslog for more info!
+
+log:
+Feb  5 23:24:02 ankitos-VirtualBox kernel: [10931.042903] Error at syscall 2. Possible error: Process not found
+
+*******************************************************************************
+Test 6:
+
+try: sudo ./shift2user 8976 1002
+output:
+	cs3013_syscall2: 0
+send2user was successful! The request was completed
+
+Log:
+
+Feb  5 23:24:42 ankitos-VirtualBox kernel: [10970.986032] 	Process found with ID 8976
+Feb  5 23:24:42 ankitos-VirtualBox kernel: [10970.986038] 	 Current user identified as a root user
+Feb  5 23:24:42 ankitos-VirtualBox kernel: [10970.986042] 	Process change successful
+Feb  5 23:24:42 ankitos-VirtualBox kernel: [10970.986046] 	 The process was found and successfully implemented the desired change
+******************************************************************************
+
+
+
+
+

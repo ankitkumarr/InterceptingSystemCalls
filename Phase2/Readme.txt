@@ -1,0 +1,33 @@
+Ankit Kumar 		akumar3@wpi.edu
+
+
+This project comprises of two main parts:
+Part 1
+Part 2
+
+
+
+Part 1: It is a simple anti-virus implementation
+Files: cs3013_project2.c, Makefile and syslog
+
+Usage:  run "make" in the terminal
+	run "sudo insmod cs3013_project2.c"
+	Open a file which has the VIRUS and then check the log file.
+
+
+Part 2: This is a program to enable shifting processes to other users
+Files: getloginuid.c, shift2user.c, makefile in Executables folder;
+	cs3013_project2.c, Makefile, Readme.txt, tests.txt and syslog
+
+Usage:  run make for the cs3013_project2.c
+	run "sudo insmod cs3013_project2.c"
+	Go to executables folder
+	run "make"
+	try changing the processes to different users by: ./shift2user <process_id> <user_id>
+	try viewing the users of the processes to check by: ./getloginuid <process_id>
+
+Check the /var/log/syslog files for information
+For sample results, please check the tests.txt file
+
+
+THANK YOU!
